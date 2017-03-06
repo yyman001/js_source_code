@@ -26,10 +26,11 @@
 
 })(this, function() {
 //核心代码写在这里
-var NProgress;
+    var NProgress;
 
 
-return NProgress; //记得返回该对象
- 
+    return NProgress; //记得返回该对象
+});
+
  ```
  
