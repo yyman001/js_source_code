@@ -92,6 +92,7 @@ return NProgress; //记得返回该对象
  NProgress.done()  //— completes the progress,主要方法,用于结束进度条状态,标志完成状态
  NProgress.configure({}); //设置参数,在调用程序前,可以自定义具体参数再进行调用
 ```
+其实`NProgress.set()`才是真正的核心方法,`start`的包装也是调用它,`inc`也是调用它,就连`done`方法都是调用它.
 下面,我们先看
 ####NProgress.settings
 ```javascript
@@ -148,7 +149,7 @@ NProgress.isStarted = function() {
 ```
 
 ####NProgress.isRendered
-判断`nprogress`元素是否存在判断是`进度条`是否渲染
+判断`nprogress`元素是否存在再判断`进度条`是否渲染
 ```javascript
   /**
    * Checks if the progress bar is rendered.
@@ -303,14 +304,18 @@ NProgress.isStarted = function() {
           //删除
           setTimeout(function() {
             NProgress.remove();
-            next(); // undefined
+            //next(); // undefined //经过我测试,这方法也是没什么卵用的
           }, speed);
           
         }, speed);
         
-      } else {
-        setTimeout(next, speed); //第一次运行必定是运行这里,然后就没然后...如果trickle为false,那么这里只执行一次
       }
+      /*else {
+        setTimeout(next, speed); //第一次运行必定是运行这里,然后就没然后...如果trickle为false,那么这里只执行一次
+      	//其实这个方法就算把next方法传入也没有,在queue中有fn的判断,依然是undefined,所以不会被执行
+        //说到底这个set方法每次调用都只是执行上面的设置长度,再判断是否status == 1 结束
+        //这里放个链接,可以自己打开看看.http://yyman001.github.io/nprogress.js/index.html
+      }*/
     });
 
     return this;
@@ -462,5 +467,6 @@ NProgress.trickle = function() {
   })();
 
 ```
-
+总结:这个框架其实就核心的一个方法,然后通过其他方法再包装下,但有很多原生的方法,原生的方法需要多看多练才行.
+整个小框架整体流程都离不开核心方法set,先通过一个对象配置信息,然后各种调用.但有些方法视乎写得有点过,就是核心方法里面的那个`queue`,是我看不出什么原因这样写的了.如果有知道的可以告诉我这个小白一下吧.
 
