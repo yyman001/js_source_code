@@ -24,7 +24,7 @@
     //即最原始的js调用方式,使用NProgress.xx方法进行调用
   }
 
-})(this, function() {
+})(this, function() {  //this => windows
 //核心代码写在这里
     var NProgress;
 
@@ -34,3 +34,46 @@
 
  ```
  
+ ####DOM 操作
+ 
+```javascript
+
+  function hasClass(element, name) {
+    var list = typeof element == 'string' ? element : classList(element);
+    return list.indexOf(' ' + name + ' ') >= 0;
+  }
+
+  function addClass(element, name) {
+    var oldList = classList(element),
+        newList = oldList + name;
+
+    if (hasClass(oldList, name)) return;
+
+    // Trim the opening space.
+    element.className = newList.substring(1);
+  }
+  
+ function classList(element) {
+    return (' ' + (element && element.className || '') + ' ').replace(/\s+/gi, ' ');
+  }
+  
+  function removeClass(element, name) {
+    var oldList = classList(element),
+        newList;
+
+    if (!hasClass(element, name)) return;
+
+    // Replace the class name.
+    newList = oldList.replace(' ' + name + ' ', ' ');
+
+    // Trim the opening and closing spaces.
+    element.className = newList.substring(1, newList.length - 1);
+  }
+  
+  function removeElement(element) {
+    element && element.parentNode && element.parentNode.removeChild(element);
+  }
+  
+  
+  
+```
