@@ -74,6 +74,10 @@
     element && element.parentNode && element.parentNode.removeChild(element);
   }
   
-  
+  获取元素样式
+  function getStyle(elem, property) {
+    // ie通过currentStyle来获取元素的样式，其他浏览器通过getComputedStyle来获取
+    return document.defaultView.getComputedStyle ? document.defaultView.getComputedStyle(elem, false)[property] : elem.currentStyle[property];
+}
   
 ```
