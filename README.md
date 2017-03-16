@@ -81,3 +81,69 @@
 }
   
 ```
+
+###检测
+Javascript检测浏览器对WebP的支持,[更多](http://stackoverflow.com/questions/5573096/detecting-webp-support#new-answer?newreg=13847b7476cc4ddf8f75e58ffd075e4a)
+2个让浏览器支持webp的js插件
+- [WebPJS](http://webpjs.appspot.com/)
+- [Libwebp Javascript - beta](http://libwebpjs.appspot.com/)
+```javascript
+//1
+var hasWebP = false;
+(function() {
+  var img = new Image();
+  img.onload = function() {
+    hasWebP = !!(img.height > 0 && img.width > 0);
+	//set cookie
+  };
+  img.onerror = function() {
+    hasWebP = false;
+	//set cookie
+  };
+  img.src = 'http://www.gstatic.com/webp/gallery/1.webp';
+})();
+
+//2
+function hasWebP() {
+  var rv = $.Deferred();
+  var img = new Image();
+  img.onload = function() { rv.resolve(); };
+  img.onerror = function() { rv.reject(); };
+  img.src = 'http://www.gstatic.com/webp/gallery/1.webp';
+  return rv.promise();
+}
+//use
+hasWebP().then(function() {
+  // ... code to take advantage of WebP ...
+}, function() {
+  // ... code to deal with the lack of WebP ...
+});
+
+//[美团](http://zmx.im/blog?bname=webp)
+function detectWebp () {
+    if (!window.localStorage || typeof localStorage !== 'object') return;
+
+    var name = 'webpa'; // webp available
+    if (!localStorage.getItem(name) || (localStorage.getItem(name) !== 'available' && localStorage.getItem(name) !== 'disable')) {
+
+        var img = document.createElement('img');
+
+        img.onload = function () {
+            try {
+                localStorage.setItem(name, 'available');
+            } catch (ex) {
+            }
+        };
+
+        img.onerror = function () {
+        try {
+                localStorage.setItem(name, 'disable');
+            } catch (ex) {
+            }
+        };
+        img.src = 'data:image/webp;base64,UklGRkoAAABXRUJQVlA4WAoAAAAQAAAAAAAAAAAAQUxQSAsAAAABBxAREYiI/gcAAABWUDggGAAAADABAJ0BKgEAAQABABwlpAADcAD+/gbQAA==';
+    }
+}
+
+```
+
