@@ -146,4 +146,46 @@ function detectWebp () {
 }
 
 ```
+####接口异常的统一处理
+```javascript
+function errorHandler(args, callback) {
+        var description;
+        var code;
+        var message;
+        var unknown = "未知";
 
+        //容错处理
+        if (args && args.length >= 2) {
+            code = args[0].status || unknown;
+            description = args[1] || unknown;
+        } else {
+            code = unknown;
+            description = unknown;
+        }
+
+        //调用回调函数
+        if (callback) {
+            if(description == "timeout"){
+                message = "请求超时";
+            }else if(description == "parsererror"){
+                message = "数据解析失败";
+            }else if(description == "abort"){
+                message = "请求未发出";
+            }else{
+                message = "请求出错:" + description + " (错误码:" + code + ")";
+            }
+            callback(message);
+        }
+    }
+
+``
+在实际接口中调用：
+```javascript
+ $.ajax({
+        ...
+    }).fail(function(){
+        errorHandler(arguments, function(message){
+            alert(message);
+        });
+    });
+```
