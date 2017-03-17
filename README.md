@@ -189,3 +189,19 @@ function errorHandler(args, callback) {
         });
     });
 ```
+完整文章:http://get.ftqq.com/7552.get
+腾讯视频真是地址获取
+
+```javascript
+通过下面的方法，你可以在不带任何广告的观看腾讯所有视频
+
+http://v.qq.com/cover/o/obr3rfx7xdatznl.html?vid=b0113x7xx0m
+
+视频播放页地址  取vid b0113x7xx0m
+
+加入后门接口
+
+http://vv.video.qq.com/geturl?vid=b0113x7xx0m&otype=xml&platform=1&ran=0%2E9652906153351068
+```
+
+
