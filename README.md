@@ -146,6 +146,53 @@ function detectWebp () {
 }
 
 ```
+####短时间中断一样的请求连接
+例子取消了重复发送的Ajax请求，这个在我们日常测试场景中也非常常见，例如疯狂点击会发送请求的按钮。
+```javascript
+
+var currentRequests = {};
+
+$.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
+  if ( options.abortOnRetry ) {
+    if ( currentRequests[ options.url ] ) {
+      currentRequests[ options.url ].abort();
+    }
+    currentRequests[ options.url ] = jqXHR;
+  }
+});
+
+
+```
+
+###重定向url
+使用情况根据自身,或者能够些接口不支持跨域或者jsonp
+```javascript
+$.ajaxPrefilter(function( options ) {
+  if ( options.crossDomain ) {
+    options.url = "http://mydomain.net/proxy/" + encodeURIComponent( options.url );
+    options.crossDomain = false;
+  }
+});
+
+
+//线上测试地址拦截转向本地数据测试
+
+$.ajaxPrefilter( "json script", function( options, originalOptions, jqXHR ) {
+	// Modify options, control originalOptions, store jqXHR, etc
+	console.log(options,'///');
+	console.log(originalOptions,'///');
+	console.log(jqXHR,'///');
+
+	if(!!options.url.match('act=getServerList')){
+		options.url = 'http://192.168.202.188:9000/test/test.json';
+	}
+});
+
+```
+
+
+
+
 ####接口异常的统一处理
 ```javascript
 function errorHandler(args, callback) {
