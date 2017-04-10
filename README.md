@@ -251,4 +251,22 @@ http://v.qq.com/cover/o/obr3rfx7xdatznl.html?vid=b0113x7xx0m
 http://vv.video.qq.com/geturl?vid=b0113x7xx0m&otype=xml&platform=1&ran=0%2E9652906153351068
 ```
 
-
+h5rem适配
+```javascript
+(function (doc, win) {
+	var docEl = doc.documentElement;
+	var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+	var recalc = function () {
+		var clientWidth = docEl.clientWidth;
+		if (!clientWidth) return;
+		if (clientWidth <= 750) {
+			docEl.style.fontSize = (clientWidth / 750 * 100).toFixed(1) + 'px';
+		}else{
+			docEl.style.fontSize = '100px';
+		}
+	};
+	recalc();
+	if (!doc.addEventListener) return;
+	win.addEventListener(resizeEvt, recalc, false);
+})(document, window);
+```
