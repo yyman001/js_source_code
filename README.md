@@ -246,6 +246,13 @@ http://v.qq.com/cover/o/obr3rfx7xdatznl.html?vid=b0113x7xx0m
 
 视频播放页地址  取vid b0113x7xx0m
 
+页面源码
+```cmd
+$('[rel="canonical"]').attr('href')
+<link rel="canonical" href="https://v.qq.com/x/cover/9703s6ewjb0l2ar/x0393r5fpe6.html">
+x0393r5fpe6 => 视频id
+```
+
 加入后门接口
 
 http://vv.video.qq.com/geturl?vid=b0113x7xx0m&otype=xml&platform=1&ran=0%2E9652906153351068
