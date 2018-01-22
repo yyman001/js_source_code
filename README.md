@@ -9,7 +9,7 @@
  
  
  
- ###其他代码块
+ ### 其他代码块
  
  让文件支持模块化
  ```javascript
@@ -27,14 +27,30 @@
 })(this, function() {  //this => windows
 //核心代码写在这里
     var NProgress;
-
-
     return NProgress; //记得返回该对象
 });
 
  ```
+ // jq 插件支持模块化
+ ```js
+ (function (factory) {
+    if ( typeof define === 'function' && define.amd ) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node/CommonJS style for Browserify
+        module.exports = factory;
+    } else {
+        // Browser globals
+        factory(jQuery);
+    }
+}(function ($) {
+//code 
+});
+ ```
  
- ####DOM 操作
+ 
+ ### DOM 操作
  
 ```javascript
 
@@ -82,7 +98,7 @@
   
 ```
 
-###检测
+### 检测
 Javascript检测浏览器对WebP的支持,[更多](http://stackoverflow.com/questions/5573096/detecting-webp-support#new-answer?newreg=13847b7476cc4ddf8f75e58ffd075e4a)
 2个让浏览器支持webp的js插件
 - [WebPJS](http://webpjs.appspot.com/)
@@ -146,7 +162,7 @@ function detectWebp () {
 }
 
 ```
-####短时间中断一样的请求连接
+### 短时间中断一样的请求连接
 例子取消了重复发送的Ajax请求，这个在我们日常测试场景中也非常常见，例如疯狂点击会发送请求的按钮。
 ```javascript
 
@@ -164,7 +180,7 @@ $.ajaxPrefilter(function( options, originalOptions, jqXHR ) {
 
 ```
 
-###重定向url
+### 重定向url
 使用情况根据自身,或者能够些接口不支持跨域或者jsonp
 ```javascript
 $.ajaxPrefilter(function( options ) {
@@ -193,7 +209,7 @@ $.ajaxPrefilter( "json script", function( options, originalOptions, jqXHR ) {
 
 
 
-####接口异常的统一处理
+### 接口异常的统一处理
 ```javascript
 function errorHandler(args, callback) {
         var description;
