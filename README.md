@@ -207,10 +207,10 @@ $.ajaxPrefilter( "json script", function( options, originalOptions, jqXHR ) {
 ```
 
 
-
-
 ### 接口异常的统一处理
+
 ```javascript
+
 function errorHandler(args, callback) {
         var description;
         var code;
@@ -241,7 +241,8 @@ function errorHandler(args, callback) {
         }
     }
 
-``
+```
+
 在实际接口中调用：
 ```javascript
  $.ajax({
@@ -259,15 +260,16 @@ function errorHandler(args, callback) {
 通过下面的方法，你可以在不带任何广告的观看腾讯所有视频
 
 http://v.qq.com/cover/o/obr3rfx7xdatznl.html?vid=b0113x7xx0m
+```
 
 视频播放页地址  取vid b0113x7xx0m
 
 页面源码
-```cmd
+```html
+
 $('[rel="canonical"]').attr('href')
 <link rel="canonical" href="https://v.qq.com/x/cover/9703s6ewjb0l2ar/x0393r5fpe6.html">
 x0393r5fpe6 => 视频id
-```
 
 加入后门接口
 
@@ -276,6 +278,7 @@ http://vv.video.qq.com/geturl?vid=b0113x7xx0m&otype=xml&platform=1&ran=0%2E96529
 
 h5rem适配
 ```javascript
+
 (function (doc, win) {
 	var docEl = doc.documentElement;
 	var resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
@@ -292,4 +295,5 @@ h5rem适配
 	if (!doc.addEventListener) return;
 	win.addEventListener(resizeEvt, recalc, false);
 })(document, window);
+
 ```
